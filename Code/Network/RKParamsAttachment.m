@@ -21,7 +21,8 @@
 #import "RKParamsAttachment.h"
 #import "RKLog.h"
 #import "NSData+RKAdditions.h"
-#import "FileMD5Hash.h"
+//#import "FileMD5Hash.h"
+#import "FileHash.h"
 #import "NSString+RKAdditions.h"
 
 // Set Logging Component
@@ -220,9 +221,10 @@ extern NSString * const kRKStringBoundary;
     if (_body) {
         return [_body MD5];
     } else if (_filePath) {
-        CFStringRef fileAttachmentMD5 = FileMD5HashCreateWithPath((CFStringRef)_filePath,
-                                                                  FileHashDefaultChunkSizeForReadingData);
-        return [(NSString *)fileAttachmentMD5 autorelease];
+//        CFStringRef fileAttachmentMD5 = FileMD5HashCreateWithPath((CFStringRef)_filePath,
+//                                                                  FileHashDefaultChunkSizeForReadingData);
+//        return [(NSString *)fileAttachmentMD5 autorelease];
+        return [FileHash md5HashOfFileAtPath:_filePath];
     } else {
         RKLogWarning(@"Failed to generate MD5 for attachment: unknown data type.");
         return nil;
